@@ -4,6 +4,11 @@ namespace iutbay\yii2jstree;
 
 use yii\web\AssetBundle;
 
+/**
+ * JsTree asset bundle.
+ * 
+ * @author Kevin LEVRON <kevin.levron@gmail.com>
+ */
 class JsTreeAsset extends AssetBundle
 {
 
@@ -19,10 +24,11 @@ class JsTreeAsset extends AssetBundle
         $this->js = ["dist/jstree{$min}.js"];
 
         // publish only dist folder
-        $this->publishOptions['beforeCopy'] = function ($from, $to) {
-            $dirname = basename(dirname($from));
-            return $dirname === 'dist';
-        };
+        $this->publishOptions['forceCopy'] = YII_DEBUG ? : false;
+//        $this->publishOptions['beforeCopy'] = function ($from, $to) {
+//            $dirname = basename(dirname($from));
+//            return $dirname === 'dist';
+//        };
     }
 
 }
