@@ -11,6 +11,7 @@
 		}
 	],
 	"require": {
+		"bower-asset/jstree" : "*",
 		"iutbay/yii2-fontawesome" : "dev-master"
 	},
 	"autoload": {
