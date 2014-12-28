@@ -23,6 +23,8 @@ or add
 
 to the require section of your application's `composer.json` file.
 
+https://packagist.org/packages/iutbay/yii2-jstree
+
 Usage
 -----
 
