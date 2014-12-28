@@ -24,7 +24,7 @@ class JsTreeAsset extends AssetBundle
         $this->js = ["dist/jstree{$min}.js"];
 
         // publish only dist folder
-        $this->publishOptions['forceCopy'] = YII_DEBUG ? : false;
+//        $this->publishOptions['forceCopy'] = YII_DEBUG ? : false;
 //        $this->publishOptions['beforeCopy'] = function ($from, $to) {
 //            $dirname = basename(dirname($from));
 //            return $dirname === 'dist';

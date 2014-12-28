@@ -15,6 +15,7 @@ class JsTree extends \yii\widgets\InputWidget
 
     /**
      * JsTree items
+     * @see http://www.jstree.com/docs/json/
      * @var array
      */
     public $items;
@@ -42,9 +43,6 @@ class JsTree extends \yii\widgets\InputWidget
     public function init()
     {
         parent::init();
-
-        if ($this->items !== null)
-            $this->clientOptions['core']['data'] = $this->items;
     }
 
     /**
@@ -71,24 +69,39 @@ class JsTree extends \yii\widgets\InputWidget
      */
     public function registerClientScript()
     {
-        $id = $this->getJsTreeId();
+        $inputId = $this->options['id'];
+        $jsTreeId = $this->getJsTreeId();
         $options = $this->getClientOptions();
         $options = empty($options) ? '' : Json::encode($options);
 
         $view = $this->getView();
         JsTreeAsset::register($view);
-        $view->registerJs("jQuery('#$id').on('changed.jstree', function(e, data) { console.log(data.selected); }).jstree($options);");
+        $view->registerJs("
+            jQuery('#$jsTreeId')
+                .on('loaded.jstree', function() { jQuery(this).jstree('select_node', jQuery('#$inputId').val().split(','), true); })
+                .on('changed.jstree', function(e, data) { console.log('test'); jQuery('#$inputId').val(data.selected.join()); })
+                .jstree($options);
+        ");
     }
 
     /**
      * Returns the options for jstree
-     * @return array the options
+     * @return array
      */
     protected function getClientOptions()
     {
-        return $this->clientOptions;
+        $options = $this->clientOptions;
+
+        if ($this->items !== null)
+            $options['core']['data'] = $this->items;
+
+        return $options;
     }
 
+    /**
+     * Returns the jstree container id
+     * @return string
+     */
     protected function getJsTreeId()
     {
         return $this->options['id'] . '_jstree';
