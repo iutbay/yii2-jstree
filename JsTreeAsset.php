@@ -14,6 +14,10 @@ class JsTreeAsset extends AssetBundle
 
     public $sourcePath = '@bower/jstree';
 
+    public $depends = [
+        'iutbay\yii2fontawesome\FontAwesomeAsset',
+    ];
+
     public function init()
     {
         parent::init();

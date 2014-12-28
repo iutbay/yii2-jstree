@@ -22,3 +22,54 @@ or add
 ```
 
 to the require section of your application's `composer.json` file.
+
+Usage
+-----
+
+With model and ActiveForm :
+```php
+<?= $form->field($model, 'test')->widget(\iutbay\yii2jstree\JsTree::className(), [
+	'items' => [
+		[
+			'id' => 1,
+			'text' => 'Test 1',
+			'children' => [
+				[
+					'id' => 2,
+					'text' => 'Test 2',
+				],
+			],
+		],
+		[
+			'id' => 3,
+			'text' => 'Test 3',
+			'icon' => 'fa fa-file',	// font awesome icon
+		],
+	],
+]) ?>
+```
+
+Without model :
+```php
+<?= \iutbay\yii2jstree\JsTree::widget([
+	'name' => 'test',
+	'value' => '1,2',
+	'items' => [
+		[
+			'id' => 1,
+			'text' => 'Test 1',
+			'children' => [
+				[
+					'id' => 2,
+					'text' => 'Test 2',
+				],
+			],
+		],
+		[
+			'id' => 3,
+			'text' => 'Test 3',
+			'icon' => 'fa fa-file',	// font awesome icon
+		],
+	],
+]) ?>
+```
