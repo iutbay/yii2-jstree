@@ -36,6 +36,12 @@ class JsTree extends \yii\widgets\InputWidget
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
     public $options = [];
+    
+    /**
+     * Multiple selection
+     * @var boolean
+     */
+    public $multiple = true;
 
     /**
      * @inheritdoc
@@ -91,6 +97,7 @@ class JsTree extends \yii\widgets\InputWidget
     protected function getClientOptions()
     {
         $options = $this->clientOptions;
+        $options['core']['multiple'] = $this->multiple;
 
         if ($this->items !== null)
             $options['core']['data'] = $this->items;
