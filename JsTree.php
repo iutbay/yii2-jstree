@@ -36,12 +36,24 @@ class JsTree extends \yii\widgets\InputWidget
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
      */
     public $options = [];
-    
+
     /**
      * Multiple selection
      * @var boolean
      */
     public $multiple = true;
+
+    /**
+     * changed.jstree handler
+     * @var string
+     */
+    public $onChanged;
+
+    /**
+     * select_node.jstree handler
+     * @var string
+     */
+    public $onSelect;
 
     /**
      * @inheritdoc
@@ -80,12 +92,22 @@ class JsTree extends \yii\widgets\InputWidget
         $options = $this->getClientOptions();
         $options = empty($options) ? '' : Json::encode($options);
 
+        $onChanged = '';
+        if ($this->onChanged)
+            $onChanged = ".on('changed.jstree', {$this->onChanged})";
+
+        $onSelect = '';
+        if ($this->onSelect)
+            $onSelect = ".on('select_node.jstree', {$this->onSelect})";
+
         $view = $this->getView();
         JsTreeAsset::register($view);
         $view->registerJs("
             jQuery('#$jsTreeId')
                 .on('loaded.jstree', function() { jQuery(this).jstree('select_node', jQuery('#$inputId').val().split(','), true); })
-                .on('changed.jstree', function(e, data) { console.log('test'); jQuery('#$inputId').val(data.selected.join()); })
+                .on('changed.jstree', function(e, data) { jQuery('#$inputId').val(data.selected.join()); })
+                $onChanged
+                $onSelect
                 .jstree($options);
         ");
     }
