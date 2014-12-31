@@ -12,7 +12,7 @@ use yii\web\AssetBundle;
 class JsTreeAsset extends AssetBundle
 {
 
-    public $sourcePath = '@bower/jstree';
+    public $sourcePath = '@bower/jstree/dist';
 
     public $depends = [
         'yii\web\JqueryAsset',
@@ -25,15 +25,8 @@ class JsTreeAsset extends AssetBundle
 
         // set css & js
         $min = YII_DEBUG ? '' : '.min';
-        $this->css = ["dist/themes/default/style{$min}.css"];
-        $this->js = ["dist/jstree{$min}.js"];
-
-        // publish only dist folder
-//        $this->publishOptions['forceCopy'] = YII_DEBUG ? : false;
-//        $this->publishOptions['beforeCopy'] = function ($from, $to) {
-//            $dirname = basename(dirname($from));
-//            return $dirname === 'dist';
-//        };
+        $this->css = ["themes/default/style{$min}.css"];
+        $this->js = ["jstree{$min}.js"];
     }
 
 }
